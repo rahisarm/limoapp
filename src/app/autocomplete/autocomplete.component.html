@@ -1,0 +1,17 @@
+<!--<form class="example-form" >-->
+  <mat-form-field class="example-full-width w-100" appearance="outline">
+    <mat-label>{{labelvalue}}</mat-label>
+    <input type="text" matInput (keyup)="getBulkData($event)" [formControl]="myControl" [matAutocomplete]="auto" [errorStateMatcher]="myErrorStateMatcher" [(ngModel)]="selectedOption">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectedFn($event)">
+      <mat-option *ngFor="let option of filteredOptions | async ; trackBy:trackByFunction" [value]="option">
+        {{option.refname}}
+      </mat-option>
+    </mat-autocomplete>
+    <span *ngIf="isloading==1" class="spinner-border pl-2 text-dark d-inline-block" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </span>
+    <mat-hint *ngIf="isloading==1">Data loading</mat-hint>
+    <mat-error *ngIf="myControl.hasError('required') || myControl.invalid">Please Select</mat-error>
+  </mat-form-field>
+  
+<!--</form>-->

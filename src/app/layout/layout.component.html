@@ -1,0 +1,11 @@
+<app-navbar *ngIf="!isLoginPage" [pagetitle]="pageTitle"></app-navbar>
+<main>
+  <ngx-spinner bdColor="rgba(255, 255, 255, 0.8)" size="default" color="#fff" type="timer" [fullScreen]="true">  
+    <h2 style="color: #000;">
+      <mat-progress-spinner mode="indeterminate" color=""></mat-progress-spinner>
+      Please Wait.
+    </h2>  
+  </ngx-spinner>
+  <router-outlet></router-outlet>
+</main>
+<app-bottomnav *ngIf="!isLoginPage"></app-bottomnav>

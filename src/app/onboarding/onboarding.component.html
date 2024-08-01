@@ -1,0 +1,34 @@
+<!--<div class="slider-container container-fluid">
+    <div class="slider-content text-center container-fluid" #slider [hidden]="isLogoVisible==true">
+        <ng-container *ngFor="let image of imagedata; let i = index">
+            <div class="slide-item text-center"   [class.active]="i==slideIndex" >
+              <img [src]="image.imgsrc" [alt]="image.alt" class="img-fluid">
+              <h2 class="display-1">{{image.heading}}</h2>
+              <p>{{image.text}}</p>
+            </div>
+          </ng-container>
+    </div>
+    <div class="nav-container container-fluid" [hidden]="isLogoVisible==true">
+      <div class="dot-container">
+        <ng-container *ngFor="let image of imagedata; let i = index">
+          <span class="dot" [class.active]="i==slideIndex"></span>
+        </ng-container>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-primary" #btnnext (click)="onNext();">{{slideIndex==imagedata.length-1?"Get Started":"Next"}}</button>
+      </div>
+    </div>    
+    <div class="logo-container" [hidden]="isLogoVisible==false">
+      <img src="{{bgpath+logoname}}" class="img-fluid">
+    </div>
+  </div>
+-->
+<div class="screen-container text-center" [style.background-image]="'url(' + bgname+ ')'">
+  <div class="logo-container bg-white p-2 rounded" >
+      <img src="{{bgpath+logoname}}" class="img-fluid">
+  </div>
+  <div class="button-container">
+      <button type="button" class="btn btn-dark bg-dark w-100" style="border-radius: 10rem;box-shadow: 0 8px 9px -4px rgba(51,45,45,0.3),0 4px 18px 0 rgba(51,45,45,0.2);" (click)="onSignin();">Get Started</button>
+  </div>
+</div>
+

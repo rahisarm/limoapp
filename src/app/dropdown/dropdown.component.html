@@ -1,0 +1,9 @@
+<mat-form-field appearance="fill" class="w-100">
+    <mat-label>{{labelvalue}}</mat-label>
+    <mat-select #fueldropdown [(value)]="selectedvalue" (selectionChange)="changeOption(fueldropdown.value)" [formControl]="cmbfuel" [errorStateMatcher]="matcher">
+        <mat-option *ngFor="let option of optionlist" [value]="option.docno">
+            {{option.refname}}
+        </mat-option>
+    </mat-select>
+    <mat-error *ngIf="cmbfuel.hasError('required')">{{errormsg}}</mat-error>
+</mat-form-field>

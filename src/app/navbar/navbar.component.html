@@ -1,0 +1,54 @@
+<mat-drawer-container class="menu-container" [hasBackdrop]="true">
+    <mat-drawer #drawer >
+      <div class="container-fluid" style="max-width: 75vw;">
+        <div class="img-container">
+          <img class="img-fluid w-75" src="assets/images/complogo.gif">            
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <mat-toolbar color="primary">
+        <span>{{pagetitle}}</span>
+        <button mat-icon-button [hidden]="true" class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <div class="profile-icon-container">
+          <button mat-icon-button [hidden]="true" aria-label="Inspection Print" (click)="onPrintInspection()"><mat-icon>print</mat-icon></button>
+          <button mat-icon-button aria-label="refresh icon" (click)="onRefreshTasks();"><mat-icon>refresh</mat-icon></button>
+          <button mat-icon-button class="profile-icon" aria-label="profile icon" [matMenuTriggerFor]="profilemenu">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <mat-menu #profilemenu="matMenu" class="profile-container">
+            <mat-list>
+              <mat-list-item style="cursor:pointer;">
+                <div class="fw-bold mb-0" mat-line>{{drivername}}</div>
+                <div class="text-muted" mat-line>{{driverdetail}}</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <!--<mat-list-item style="cursor:pointer;">
+                <mat-icon matListIcon>notifications</mat-icon>
+                <p matLine>Notifications</p>
+              </mat-list-item>
+              <mat-list-item style="cursor:pointer;">
+                <mat-icon matListIcon>manage_accounts</mat-icon>
+                <p matLine>Profile Settings</p>
+              </mat-list-item>
+              <mat-list-item style="cursor:pointer;">
+                <mat-icon matListIcon>support_agent</mat-icon>
+                <p matLine>Contact Support</p>
+              </mat-list-item>-->
+              <mat-list-item (click)="onLogOut()" style="cursor:pointer;">
+                <mat-icon matListIcon>logout</mat-icon>
+                <p matLine>Log Out</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list class="text-center">
+                <img src="assets/images/complogo.gif" class="img-fluid w-50" style="width:100%;height:auto;">
+              </mat-list>
+            </mat-list>
+          </mat-menu>
+        </div>
+      </mat-toolbar>
+    </mat-drawer-content>
+</mat-drawer-container>

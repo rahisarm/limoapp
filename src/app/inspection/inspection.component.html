@@ -1,0 +1,77 @@
+<form>
+<div class="container-fluid pt-2" style="height: 75vh;overflow-y: auto;">
+    <div class="card" style="border-color:transparent;">
+        <div class="card-body bg-custom-primary rounded" *ngIf="this.showFleetSearch==0">
+            <h3 class="mb-0">Inspection for {{this.activetask.inspectflname}}</h3>
+        </div>
+        <div [hidden]="this.showFleetSearch==0" *ngIf="this.showFleetSearch>0" class="mt-3">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <app-autocomplete #elminspfleet [type]="'inspfleet'" [labelvalue]="'Select Fleet'" ngDefaultControl [(ngModel)]="fleetvalue" name="fleetvalue" (valueChange)="getAutoListValue($event,'inspfleet')"></app-autocomplete>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <app-dropdown #elminsptype ngDefaultControl [(ngModel)]="insptype" name="insptype" (valueChange)="getListValue($event,'insptype')" [labelvalue]="'Select Type'" [placeholder]="'Type'" [type]="'insptype'"></app-dropdown>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <app-dropdown #elminspreftype ngDefaultControl [(ngModel)]="inspreftype" name="inspreftype" (valueChange)="getListValue($event,'inspreftype')" [labelvalue]="'Select Ref.Type'" [placeholder]="'Ref.Type'" [type]="'inspreftype'"></app-dropdown>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <app-dropdown #elminspbrhid ngDefaultControl [(ngModel)]="brhid" name="brhid" (valueChange)="getListValue($event,'Branch')" [labelvalue]="'Select Branch'" [placeholder]="'Branch'" [type]="'branch'"></app-dropdown>    
+                </div>
+                <div class="col-12">
+                    <app-autocomplete #elminsprdocno [type]="'insprdocno'" [labelvalue]="'Select Document'" ngDefaultControl [(ngModel)]="insprdocno" name="insprdocno" (valueChange)="getAutoListValue($event,'insprdocno')" [parambrhid]="this.brhid" [paramfleetno]="this.fleetvalue" [paramreftype]="this.inspreftype" [paramtype]="this.insptype" [initialValue]="initialRefDocNo"></app-autocomplete>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-12">
+            <label for="formFile" class="form-label">Upload Images</label>
+            <input class="form-control" type="file" id="formFile" multiple (change)="onFileChange($event)" [accept]="acceptedfiles">
+            <div class="row mt-4">
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3 mb-1" *ngFor="let item of items">
+                    <div class="img-container position-relative">
+                        <img [src]="item.url" class="img-fluid img-thumbnail rounded">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" (click)="onDeleteItem(item)">
+                            <mat-icon>delete</mat-icon>
+                            <span class="visually-hidden">delete image</span>
+                        </span>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" *ngIf="lastinspimgpath!=''">
+            <div class="card card-shadow mb-2">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Existing Inspection</h3>
+                </div>
+                <div class="card-body" style="border-bottom: 1px solid #000;border-color: var(--bs-gray-500);">
+                    <div class="row">
+                        <mat-chip-list aria-label="Existing Inspection Details">
+                            <mat-chip class="chip-bg text-light" selected><small>Insp # :{{lastinspvocno}}</small></mat-chip>
+                            <mat-chip class="chip-bg text-light" selected><small>Insp Date : {{lastinspdate}}</small></mat-chip>
+                            <mat-chip class="chip-bg text-light" selected><small>Ref Type : {{lastinspreftype}}</small></mat-chip>
+                            <mat-chip class="chip-bg text-light" selected><small>Ref No : {{lastinsprefno}}</small></mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+                <img src="{{lastinspimgpath}}" class="card-img-bottom" alt="Existing Inspection Details">
+              </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-0">Mark Image Below</p>
+                </div>
+                <div class="card-body" #imagemarkercontainer>
+                    <app-imagemarker [parentIndex]="0" [canvasid]="'canvas'" [borderCss]="'1px solid #000'" class="img-fluid" [src]="'assets/images/replacevehicle.jpg'" (save)="saveMarkedImage($event)" ></app-imagemarker>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="button" color="primary" mat-raised-button (click)="imageUploadAction()" class="w-100" style="margin-bottom: 100px;">Save Inspection</button>
+        </div>
+    </div>
+</div>
+
+</form>

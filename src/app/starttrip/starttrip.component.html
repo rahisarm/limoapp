@@ -1,0 +1,34 @@
+<div class="container-fluid pt-2" style="height: 75vh;overflow-y: auto;">
+    <div class="card ">
+        <div class="card-body">
+            <div class="card bg-custom-primary" *ngIf="this.starttripheader!='Start Trip'">
+                <div class="card-body">
+                    <h3 class="mb-0">{{starttripheader}}</h3>
+                </div>
+            </div>
+            <div class="row " [ngClass]="{'mt-2':this.starttripheader!='Start Trip'}">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-datepicker ngDefaultControl [(ngModel)]="datevalue" name="datevalue" [minDate]="mindate" (dateValueChange)="getDate($event)"></app-datepicker>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-timepicker  ngDefaultControl [(ngModel)]="timevalue" name="timevalue" (valueChange)="getTime($event)" [baseparamtime]="basetime"></app-timepicker>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-numericinput ngDefaultControl [(ngModel)]="kmvalue" name="kmvalue" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event)" [validatevalue]="minkm"></app-numericinput>
+                </div>
+                <div Class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-textinput ngDefaultControl [(ngModel)]="remarks" name="remarks" [textstatus]="texterrorstatus" (valueChange)="getTextValue($event)" [placeholder]="'Remarks'"></app-textinput>
+                </div>
+            </div>
+            <div class="row mt-2" [hidden]="starttripstage==1">
+                <div class="col-12">
+                    <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <button mat-raised-button color="primary" class="w-100" (click)="onSubmit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <app-bottomnav [selectedMenu]="'starttrip'"></app-bottomnav>
+</div>

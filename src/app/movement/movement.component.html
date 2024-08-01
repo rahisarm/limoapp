@@ -1,0 +1,61 @@
+<div class="container-fluid pt-2" style="height: 75vh;overflow-y: auto;">
+    <div class="card ">
+        <div class="card-body">
+            <div class="card bg-custom-primary" *ngIf="this.movheader!='Create Movement'">
+                <div class="card-body">
+                    <h3 class="mb-0">{{movheader}}</h3>
+                </div>
+            </div>
+            <div class="row " [ngClass]="{'mt-2':this.movheader!='Create Movement'}">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="movstage>1">
+                    <app-autocomplete [type]="'movfleet'" [labelvalue]="'Select Fleet'" ngDefaultControl [(ngModel)]="fleetvalue" name="fleetvalue" (valueChange)="getAutoListValue($event,'Fleet')"></app-autocomplete>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="movstage>1">
+                    <app-dropdown ngDefaultControl [(ngModel)]="typevalue" name="typevalue" (valueChange)="getListValue($event,'Type')" [labelvalue]="'Select Type'" [placeholder]="'Type'" [type]="'movtype'"></app-dropdown>    
+                </div>
+                <div [hidden]="movstage==1 || (movstage>1 && this.activetask.movtype!='TR' && (this.activetask.delivery=='0' || this.activetask.collection=='0'))">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <app-dropdown ngDefaultControl [(ngModel)]="brhid" name="brhid" (valueChange)="getListValue($event,'Branch')" [labelvalue]="'Select Branch'" [placeholder]="'Branch'" [type]="'branch'"></app-dropdown>    
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <app-dropdown ngDefaultControl [(ngModel)]="locid" name="locid" (valueChange)="getListValue($event,'Location')" [labelvalue]="'Select Location'" [placeholder]="'Location'" [type]="'location'" [foreignkey]="this.brhid"></app-dropdown>    
+                        </div>
+                    </div>
+                        
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-datepicker ngDefaultControl [(ngModel)]="datevalue" name="datevalue" [minDate]="mindate" (dateValueChange)="getDate($event)"></app-datepicker>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-timepicker  ngDefaultControl [(ngModel)]="timevalue" name="timevalue" (valueChange)="getTime($event)" [baseparamtime]="basetime"></app-timepicker>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="movstage==1">
+                    <app-dropdown ngDefaultControl [(ngModel)]="fuelvalue" name="fuelvalue" (valueChange)="getListValue($event,'Fuel')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="movstage==1">
+                    <app-numericinput ngDefaultControl [(ngModel)]="kmvalue" name="kmvalue" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event)" [validatevalue]="minkm"></app-numericinput>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="!(typevalue=='GS' || typevalue=='GA' || typevalue=='GM')">
+                    <app-autocomplete [type]="'movgarage'" ngDefaultControl [labelvalue]="'Select Garage'" [(ngModel)]="garagevalue" name="garagevalue" (valueChange)="getAutoListValue($event,'Garage')"></app-autocomplete>    
+                </div>
+                <div [ngClass]="{'col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12':!(typevalue=='GS' || typevalue=='GA' || typevalue=='GM')}" [ngClass]="{'col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6':(typevalue=='GS' || typevalue=='GA' || typevalue=='GM')}">
+                    <app-textinput ngDefaultControl [(ngModel)]="remarks" name="remarks" [textstatus]="texterrorstatus" (valueChange)="getTextValue($event)" [placeholder]="'Remarks'"></app-textinput>
+                </div>
+                <div [hidden]="(this.activetask.movtype=='GS' || this.activetask.movtype=='GM' || this.activetask.movtype=='GA') && (this.activetask.delivery==0 || this.activetask.collection==0)">
+                        
+                </div>
+
+            </div>
+            <div class="row mt-2" [hidden]="movstage==1">
+                <div class="col-12">
+                    <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <button mat-raised-button color="primary" class="w-100" (click)="onSubmit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <app-bottomnav [selectedMenu]="'movement'"></app-bottomnav>
+</div>

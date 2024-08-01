@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;700&display=swap');
+.form-control:focus{
+    box-shadow: 0 0 0 0.15rem rgb(13 110 253 / 15%);
+}
+html,body,input,.bg-wrapper *{
+    font-family: 'Poppins', sans-serif;
+}
+section.bg-wrapper {
+    /*background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;*/
+    background: url('../../assets/images/5621563.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    animation: 6s pan infinite alternate linear;
+  }
+  @keyframes pan {
+    100%{
+        background-position:15% 50%;
+    }
+  }
+.spinner-border{
+    width: 1.5rem;
+    height: 1.5rem;
+}

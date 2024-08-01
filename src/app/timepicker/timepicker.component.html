@@ -1,0 +1,9 @@
+
+<mat-form-field class="toggle-example w-100" appearance="outline">
+    <mat-label>Choose a time</mat-label>
+    <input placeholder="24hr format"[(ngModel)]="time" aria-label="24hr format" matInput [ngxTimepicker]="toggleTimepicker" [format]="24" readonly [value]="time" [defaultValue]="time" [disabled]="disabled">
+    <mat-hint>HH:mm</mat-hint>
+    <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+    <ngx-material-timepicker #toggleTimepicker [appendToInput]="true" (timeChanged)="setTime($event)" [defaultTime]="time"></ngx-material-timepicker>
+    
+</mat-form-field>

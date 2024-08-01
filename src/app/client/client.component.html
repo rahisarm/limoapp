@@ -1,0 +1,90 @@
+<div class="container-fluid mt-2 pb-7" style="height: 75vh;overflow-y: auto;">
+    <form>
+        <div class="row" >
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-textinput ngDefaultControl [labelvalue]="'Client'" [placeholder]="'Client Name'" [(ngModel)]="clientname" name="clientname" [textstatus]="clientnamestatus" (valueChange)="getTextValue($event,'clientname')" [isRequired]="true" ></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'Mobile No'" [placeholder]="'Mobile No'" ngDefaultControl [(ngModel)]="mobileno" name="mobileno" [textstatus]="mobilenostatus" (valueChange)="getTextValue($event,'mobileno')" [isRequired]="true"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'Email Id'" [placeholder]="'Email Id'" ngDefaultControl [(ngModel)]="emailid" name="emailid" [textstatus]="emailidstatus" (valueChange)="getTextValue($event,'emailid')" [isRequired]="false"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-datepicker  [maxDate]="basemindate" [allowBackDate]="1" [placeholder]="'Choose Date of Birth'" ngDefaultControl [(ngModel)]="dob" name="dob" (dateValueChange)="getDate($event,'dob')"></app-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'License No'" [placeholder]="'License No'"  ngDefaultControl [(ngModel)]="licenseno" name="licenseno" [textstatus]="licensenostatus" (valueChange)="getTextValue($event,'licenseno')" [isRequired]="true"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'License Issued'" [placeholder]="'License Issued'" ngDefaultControl [(ngModel)]="licenseissued" name="licenseissued" [textstatus]="licenseissuedstatus" (valueChange)="getTextValue($event,'licenseissued')" [isRequired]="true"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-datepicker  [minDate]="basemindate" [allowFutureDate]="1" [placeholder]="'Choose License Expiry'" ngDefaultControl [(ngModel)]="licenseexpiry" name="licenseexpiry" (dateValueChange)="getDate($event,'licenseexpiry')"></app-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'ID No'" [placeholder]="'ID No'" ngDefaultControl [(ngModel)]="visano" name="visano" [textstatus]="visanostatus" (valueChange)="getTextValue($event,'visano')"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'ID Issued'" [placeholder]="'ID Issued'" ngDefaultControl [(ngModel)]="visaissued" name="visaissued" [textstatus]="visaissuedstatus" (valueChange)="getTextValue($event,'visaissued')"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-2">
+                    <app-datepicker [minDate]="basemindate" [allowFutureDate]="1" [placeholder]="'Choose ID Expiry'" ngDefaultControl [(ngModel)]="visaexpiry" name="visaexpiry" (dateValueChange)="getDate($event,'visaexpiry')"></app-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-textinput [labelvalue]="'Passport No'" [placeholder]="'Passport No'" ngDefaultControl [(ngModel)]="passportno" name="passportno" [textstatus]="passportnostatus" (valueChange)="getTextValue($event,'passportno')" [isRequired]="true"></app-textinput>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-datepicker [minDate]="basemindate" [allowFutureDate]="1" [placeholder]="'Choose Passport Expiry'" ngDefaultControl [(ngModel)]="passportexpiry" name="passportexpiry" (dateValueChange)="getDate($event,'passportexpiry')" ></app-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <app-dropdown ngDefaultControl [(ngModel)]="invtype" name="invtype" (valueChange)="getListValue($event,'invtype')" [labelvalue]="'Select Invoice Type'" [placeholder]="'Invoice Type'" [type]="'invtype'"></app-dropdown>    
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <mat-checkbox [(ngModel)]="chkadvance" name="chkadvance" [labelPosition]="'after'" ngDefaultControl [checked]="false" (change)="onCheckboxChange($event);">Advance</mat-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mb-2">
+                    <button mat-raised-button type="submit" color="primary" class="w-100" (click)="onSubmit()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>

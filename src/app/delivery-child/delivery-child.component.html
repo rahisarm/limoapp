@@ -1,0 +1,39 @@
+<div class="container-fluid" style="height: 75vh;overflow-y: auto;">
+    <form>
+        <div class="card w-100 mx-auto" style="margin-top: 3rem;">
+            <div class="card-body">
+                <div class="card bg-custom-primary mb-2">
+                    <div class="card-body pb-1 pt-1">
+                        <h2 class="card-title mb-0 text-light">{{this.activetask.clientname}}</h2>
+                        <h3 class="card-title mb-0 text-light">{{this.activetask.voctype+this.activetask.vocno}}</h3>
+                        <p class="card-text text-light">{{this.activetask.fleetname}}</p>
+                    </div>
+                </div>
+                <div hidden="true"></div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <app-datepicker ngDefaultControl [(ngModel)]="deldatevalue" name="deldatevalue" [minDate]="mindeldate" (dateValueChange)="getDate($event)"></app-datepicker>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <app-timepicker  ngDefaultControl [(ngModel)]="deltimevalue" name="deltimevalue" (valueChange)="getTime($event)" [baseparamtime]="deltimevalue"></app-timepicker>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <app-dropdown ngDefaultControl [(ngModel)]="delfuelvalue" name="delfuelvalue" (valueChange)="getFuelValue($event)" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <app-numericinput ngDefaultControl [(ngModel)]="delkmvalue" name="delkmvalue" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event)" [validatevalue]="minkm"></app-numericinput>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="usedkm"></app-text-widget>
+                    </div>
+                </div>
+                <button mat-raised-button color="primary" class="w-100" (click)="onSubmit()">Save Changes</button>
+            </div>
+        </div>
+    </form>
+    <app-bottomnav></app-bottomnav>
+</div>

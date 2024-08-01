@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width w-100" appearance="outline">
+    <mat-label>{{this.placeholder}}</mat-label>
+    <input matInput readonly="true" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [value]="defaultdate" (dateChange)="setDate($event)" [disabled]="disabled" (blur)="onInputBlur()">
+    <mat-hint>DD.MM.YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker ></mat-datepicker>
+    <mat-error>asd</mat-error>
+  </mat-form-field>

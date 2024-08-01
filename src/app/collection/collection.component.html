@@ -1,0 +1,88 @@
+<div class="container-fluid" style="height: 75vh;overflow-y: auto;">
+    <form>
+        <div class="card w-75 mx-auto mt-4">
+            <div class="card-body">
+                <div class="card bg-custom-primary mb-2">
+                    <div class="card-body pb-1 pt-1">
+                        <h2 class="card-title mb-0 text-light">{{this.activetask.clientname}}</h2>
+                        <h3 class="card-title mb-0 text-light">{{this.activetask.voctype+this.activetask.vocno}}</h3>
+                        <p class="card-text text-light">{{fleetname}}</p>
+                    </div>
+                </div>
+                
+                <mat-vertical-stepper #stepper >
+                    <mat-step >
+                        <form >
+                            <ng-template matStepLabel>Vehicle Recieved From Client</ng-template>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <app-datepicker #pickupdate ngDefaultControl [(ngModel)]="collectdatevalue" name="collectdate" [minDate]="mindate" (dateValueChange)="getDate($event,'Collect')"></app-datepicker>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <app-timepicker #pickuptime ngDefaultControl [(ngModel)]="collecttimevalue" name="collecttime" (valueChange)="getTime($event,'Collect')" [baseparamtime]="basecollecttime"></app-timepicker>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <app-dropdown #pickupfuel ngDefaultControl [(ngModel)]="collectfuelvalue" name="collectfuelvalue" (valueChange)="getFuelValue($event,'Collect')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <app-numericinput #pickupkm ngDefaultControl [(ngModel)]="collectkmvalue" name="collectkm" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event,'Collect')" [validatevalue]="validatekm"></app-numericinput>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                                </div>
+                            </div>
+                            <div class="float-end">
+                                <button mat-raised-button color="primary" (click)="onStepNext(stepper,0)">Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <form >
+                            <ng-template matStepLabel>Vehicle closed at branch</ng-template>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-dropdown ngDefaultControl [(ngModel)]="brhid" name="brhid" (valueChange)="getListValue($event,'B')" [labelvalue]="'Select Branch'" [placeholder]="'Branch'" [type]="'branch'" (ngModelChange)="onBranchChange($event.target.value)"></app-dropdown>    
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-dropdown ngDefaultControl [(ngModel)]="locid" name="locid" (valueChange)="getListValue($event,'L')" [labelvalue]="'Select Location'" [placeholder]="'Location'" [type]="'location'" [foreignkey]="this.brhid"></app-dropdown>    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-datepicker ngDefaultControl [(ngModel)]="closedate" name="closedate" [minDate]="minclosedate" (dateValueChange)="getDate($event,'Close')"></app-datepicker>     
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-timepicker  ngDefaultControl [(ngModel)]="closetime" name="closetime" (valueChange)="getTime($event,'Close')" [baseparamtime]="baseclosetime"></app-timepicker>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-dropdown ngDefaultControl [(ngModel)]="closefuel" name="closefuel" (valueChange)="getFuelValue($event,'Close')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>    
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <app-numericinput ngDefaultControl [(ngModel)]="closekm" name="closekm" [kmstatus]="closekmerrorstatus"  (valueChange)="getKmValue($event,'Close')" [validatevalue]="validatekm"></app-numericinput>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                                </div>
+                            </div>
+                            <div class="float-end">
+                                <button mat-button matStepperPrevious>Back</button>
+                                <button mat-raised-button color="primary" (click)="onStepNext(stepper,1)">Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </div>
+        </div>
+    </form>
+    <!--<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="timer" [fullScreen]="true">  
+        <p style="color: #fff">Please Wait.</p>  
+    </ngx-spinner>-->
+</div>

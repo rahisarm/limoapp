@@ -1,0 +1,62 @@
+<div class="container-fluid pt-2" style="height: 75vh;overflow-y: auto;">
+    <div class="card ">
+        <div class="card-body">
+            <div class="card bg-custom-primary" *ngIf="this.expenseheader!='Add Expense'">
+                <div class="card-body">
+                    <h3 class="mb-0">{{expenseheader}}</h3>
+                </div>
+            </div>
+            <div class="row " [ngClass]="{'mt-2':this.expenseheader!='Add Expense'}">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="expensestage>1">
+                    <app-autocomplete #elmjobno [type]="'jobno'" [labelvalue]="'Select Job'" ngDefaultControl [(ngModel)]="jobnovalue" (valueChange)="getClientDetails($event,'jobno')" name="jobno"></app-autocomplete>
+                </div>
+                <div Class="{'col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6'}">
+                    <!-- <app-textinput ngDefaultControl [(ngModel)]="clientvalue" name="clientvalue" [textstatus]="texterrorstatus" [placeholder]="'Client'" [disabled]="false"></app-textinput> -->
+                    <mat-form-field class="example-full-width w-100" appearance="outline">
+                        <mat-label>{{"Client"}}</mat-label>
+                        <input matInput [(ngModel)]="clientvalue" name="clientvalue" [placeholder]="'Client'">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="expensestage>1">
+                    <app-dropdown ngDefaultControl [(ngModel)]="paytype" name="paytype"  [labelvalue]="'Select paytype'" (valueChange)="getListValue($event,'PayType')" [placeholder]="'Pay Type'" [type]="'paytype'"></app-dropdown>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" [hidden]="this.paytype!='2'">
+                    <app-dropdown ngDefaultControl [(ngModel)]="cardtype" name="cardtype" (valueChange)="getListValue($event,'CardType')" [labelvalue]="'Select Card Type'" [placeholder]="'Card Type'" [type]="'cardtype'" [foreignkey]="this.paytype"></app-dropdown>    
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6" [hidden]="this.paytype!='2'">
+                    <app-textinput ngDefaultControl [(ngModel)]="cardvalue" name="cardvalue" [textstatus]="cardnoerrorstatus"  (valueChange)="getTextValue($event,'Card')" [placeholder]="'Card No'" [isNumeric]="true"></app-textinput>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6" [hidden]="this.paytype!='3'">
+                    <app-textinput ngDefaultControl [(ngModel)]="chequevalue" name="chequevalue" [textstatus]="chequenoerrorstatus"  (valueChange)="getTextValue($event,'Cheque')" [placeholder]="'Cheque No'"></app-textinput>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6" [hidden]="this.paytype!='3'">
+                    <app-datepicker ngDefaultControl [(ngModel)]="chequedatevalue" name="chequedatevalue" [minDate]="minchequedate" (dateValueChange)="getDate($event)"></app-datepicker>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                    <app-numericinput ngDefaultControl [(ngModel)]="amountvalue" name="amountvalue" [kmstatus]="amounterrorstatus"   (valueChange)="getNumericValue($event,'Amount')" [labelvalue]="'Amount'"  [alignstyle]="'right'"></app-numericinput>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <app-textinput ngDefaultControl [(ngModel)]="descvalue" name="descvalue" [textstatus]="texterrorstatus" (valueChange)="getTextValue($event,'Description')" [placeholder]="'Description'"></app-textinput>
+                </div>
+                <div class="col-12">
+                    <label for="formFile" class="form-label">Upload Images</label>
+                    <input class="form-control" type="file" id="formFile" multiple (change)="onFileChange($event)" [accept]="acceptedfiles">
+                    <div class="row mt-4">
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-3 mb-1" *ngFor="let item of items">
+                            <div class="img-container position-relative">
+                                <img [src]="item.url" class="img-fluid img-thumbnail rounded">
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" (click)="onDeleteItem(item)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span class="visually-hidden">delete image</span>
+                                </span>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <button mat-raised-button color="primary" class="w-100" (click)="onSubmit()">Save Expense</button>
+            </div>
+        </div>
+    </div>
+</div>

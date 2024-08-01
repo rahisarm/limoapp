@@ -1,0 +1,14 @@
+.nav-item a fa-icon,.nav-item a .menu-text{
+    color: #BAB3B1;
+}
+.nav-item.active a fa-icon,.nav-item.active a .menu-text{
+    color: #3f51b5;
+    font-weight: bold;
+}
+.nav-item a .menu-text{
+    display: block;
+}
+.nav{
+    flex-direction: row;
+    flex-wrap:nowrap;
+}

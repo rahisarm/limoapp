@@ -1,0 +1,32 @@
+<ul class="nav fixed-bottom justify-content-center border pt-2 pb-2 nav-fill bg-light">
+    <li class="nav-item" [ngClass]="{'active':selectedMenu=='home'}">
+        <a class="nav-link" routerLink="/home" (click)="onMenuClick('home')">
+            <fa-icon [icon]="['fas', 'house']"></fa-icon>
+            <span class="menu-text" style="margin-left: 0.2rem;">Home</span>
+        </a>
+    </li>
+    <li class="nav-item " [class.active]="selectedMenu==='movement'">
+        <a class="nav-link" routerLink="/movement" (click)="onMenuClick('movement')">
+            <fa-icon [icon]="['fas', 'car']"></fa-icon>
+            <span class="menu-text" style="margin-left: 0.2rem;">Movements</span>
+        </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active':selectedMenu=='expense'}">
+        <a class="nav-link" routerLink="/expense" (click)="onMenuClick('expense')">
+            <fa-icon [icon]="['fas', 'money-bill-1']"></fa-icon>
+            <span class="menu-text" style="margin-left: 0.2rem;">Expense</span>
+        </a>
+    </li>
+    <li class="nav-item " [class.active]="selectedMenu==='receipt'">
+        <a class="nav-link" routerLink="/receipt" (click)="onMenuClick('receipt')">
+            <fa-icon [icon]="['fas', 'receipt']"></fa-icon>
+            <span class="menu-text" style="    margin-left: 0.2rem;">Receipts</span>
+        </a>
+    </li>
+    <li class="nav-item " [class.active]="selectedMenu==='inspection'">
+        <a class="nav-link" routerLink="/inspection" (click)="onMenuClick('inspection')">
+            <fa-icon [icon]="['fas', 'car-tunnel']"></fa-icon>
+            <span class="menu-text" style="    margin-left: 0.2rem;">Inspection</span>
+        </a>
+    </li>
+</ul>

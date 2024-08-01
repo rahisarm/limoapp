@@ -1,0 +1,119 @@
+<div class="container-fluid" style="overflow-y: auto;height:75vh;">
+    <div class="card ">
+        <div class="card-body">
+            <div class="card bg-custom-primary">
+                <div class="card-body">
+                    <h2 class="card-title mb-0 text-light">{{this.activetask.clientname}}</h2>
+                    <h3 class="card-title mb-0 text-light">{{this.activetask.voctype+this.activetask.vocno}}</h3>
+                    <p class="card-text text-light">{{this.activetask.fleetname}}</p>
+                </div>
+            </div>
+            <mat-vertical-stepper #stepper >
+                <mat-step >
+                    <form >
+                        <ng-template matStepLabel>Vehicle Recieved From Client</ng-template>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-datepicker #collectdate ngDefaultControl [(ngModel)]="collectdatevalue" name="collectdatevalue" [minDate]="mincollectdate" (dateValueChange)="getDate($event,'C')"></app-datepicker>     
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-timepicker #collecttime ngDefaultControl [(ngModel)]="collecttimevalue" name="collecttimevalue" (valueChange)="getTime($event,'C')" [baseparamtime]="basecollecttime"></app-timepicker>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-dropdown #collectfuel ngDefaultControl [(ngModel)]="collectfuelvalue" name="collectfuelvalue" (valueChange)="getListValue($event,'C')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>    
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-numericinput #collectkm ngDefaultControl [(ngModel)]="collectkmvalue" name="collectkmvalue" [kmstatus]="collectkmerrorstatus"  (valueChange)="getKmValue($event,'C')" [validatevalue]="minkm"></app-numericinput>
+                            </div>
+                        </div>
+                        <div class="row mt-2" [hidden]="this.activetask.repstage!=1">
+                            <div class="col-12">
+                                <app-text-widget #collectwidget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                            </div>
+                        </div>
+                        <div class="float-end">
+                            <button mat-raised-button color="primary" (click)="onStepNext(stepper,0,1)">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <form >
+                        <ng-template matStepLabel>New Veh. handed over to client </ng-template>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-datepicker #deldate ngDefaultControl [(ngModel)]="deldatevalue" name="deldatevalue" [minDate]="mindeldate" (dateValueChange)="getDate($event,'D')"></app-datepicker>     
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-timepicker #deltime ngDefaultControl [(ngModel)]="deltimevalue" name="deltimevalue" (valueChange)="getTime($event,'D')" [baseparamtime]="basedeltime"></app-timepicker>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-dropdown #delfuel ngDefaultControl [(ngModel)]="delfuelvalue" name="delfuelvalue" (valueChange)="getListValue($event,'D')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>    
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-numericinput #delkm ngDefaultControl [(ngModel)]="delkmvalue" name="delkmvalue" [kmstatus]="delkmerrorstatus"  (valueChange)="getKmValue($event,'D')" [validatevalue]="minkm"></app-numericinput>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <app-textinput #delto ngDefaultControl [(ngModel)]="deliverto" name="deliverto" [textstatus]="deltexterrorstatus" (valueChange)="getTextValue($event,'D')" [placeholder]="'Deliver To'"></app-textinput>
+                            </div>
+                        </div>
+                        <div class="row mt-2" [hidden]="this.activetask.repstage!=2">
+                            <div class="col-12">
+                                <app-text-widget #delwidget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                            </div>
+                        </div>
+                        <div class="float-end">
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-raised-button color="primary" (click)="onStepNext(stepper,1,1)">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <form >
+                        <ng-template matStepLabel>Collected Veh. closing at branch</ng-template>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-dropdown ngDefaultControl [(ngModel)]="inbranchvalue" name="inbranchvalue" (valueChange)="getListValue($event,'IB')" [labelvalue]="'Select Branch'" [placeholder]="'Branch'" [type]="'branch'" (ngModelChange)="onBranchChange($event.target.value)"></app-dropdown>    
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-dropdown ngDefaultControl [(ngModel)]="inlocvalue" name="inlocvalue" (valueChange)="getListValue($event,'IL')" [labelvalue]="'Select Location'" [placeholder]="'Location'" [type]="'location'" [foreignkey]="this.inbranchvalue"></app-dropdown>    
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-datepicker #indate ngDefaultControl [(ngModel)]="indatevalue" name="indatevalue" [minDate]="minindate" (dateValueChange)="getDate($event,'I')"></app-datepicker>     
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-timepicker  ngDefaultControl [(ngModel)]="intimevalue" name="intimevalue" (valueChange)="getTime($event,'I')" [baseparamtime]="baseintime"></app-timepicker>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-dropdown ngDefaultControl [(ngModel)]="infuelvalue" name="infuelvalue" (valueChange)="getListValue($event,'I')" [labelvalue]="'Select Fuel'" [placeholder]="'Fuel'" [type]="'fuel'"></app-dropdown>    
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <app-numericinput ngDefaultControl [(ngModel)]="inkmvalue" name="inkmvalue" [kmstatus]="inkmerrorstatus"  (valueChange)="getKmValue($event,'I')" [validatevalue]="minkm"></app-numericinput>
+                            </div>
+                        </div>
+                        <div class="row mt-2" [hidden]="this.activetask.repstage!=3">
+                            <div class="col-12">
+                                <app-text-widget [widgetvaluefirst]="this.minkm" [widgetvaluesecond]="this.usedkm"></app-text-widget>
+                            </div>
+                        </div>
+                        <div class="float-end">
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-raised-button color="primary" (click)="onStepNext(stepper,2,1)">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-vertical-stepper>            
+        </div>
+    </div>
+</div>
+
+  

@@ -1,0 +1,47 @@
+<div class="container-fluid pt-3" style="height: 78vh;overflow-y: auto;">
+    <ul class="list-group">
+        <li class="list-group-item active">Inspection Details</li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-6">Ref Type</div>
+                <div class="col-6">{{reftype}}</div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-6">Ref No</div>
+                <div class="col-6">{{refvocno}}</div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-6">Reg No</div>
+                <div class="col-6">{{fleetregno}}</div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-6">Vehicle</div>
+                <div class="col-6">{{fleetname}}</div>
+            </div>
+        </li>
+    </ul>
+    <div class="row">
+        <div class="col-12" #imagemarkercontainer>
+            <div class="imagemarkercontainer text-center">
+                <signature-pad #signature [options]="this.signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)" style="background: transparent;"></signature-pad>
+                <div class="text-center mt-2">
+                    <button type="button" class="btn btn-outline-secondary" (click)="onClearSignature();">Clear Signature</button>
+                    <button type="button" color="primary" mat-raised-button (click)="onUpdateInsp();" class="ms-2">Save Changes</button>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <!--<div class="row mt-2">
+        <div class="col">
+            <button type="button" color="primary" mat-raised-button (click)="onUpdateInsp();" class="mb-5 w-100">Save Changes</button>
+        </div>
+    </div>-->
+</div>

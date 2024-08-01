@@ -1,0 +1,153 @@
+<div class="content-body pt-1" style="height: 80vh;overflow-y: auto;background: url('{{bgpath}}bg-5.jpg') no-repeat center center fixed;background-size: cover;">
+        <div class="container-fluid p-3"  >
+          <div class="row" *ngIf="driverFound==0">
+            <div class="col-12">
+              <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <mat-icon>warning</mat-icon>
+                <div class="ms-2"><p class="mb-0 fs-6">No Driver Found</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="input-group mb-1 search-group">
+                <input type="text" ngDefaultControl [(ngModel)]="filtertext" class="form-control p-2" id="filtertext" placeholder="Search">
+                <button class="btn btn-outline-primary" type="button"><fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon></button>
+              </div>
+            </div>
+          </div>
+          <!-- <ul class="list-group list-group-horizontal" hidden="true">
+            <li class="list-group-item">
+              <h2 class="mb-2 font-heading fs-4">{{movcount}}</h2>
+              <p class="mb-0 fs-9 text-secondary fw-medium">Movements</p>
+            </li>
+            <li class="list-group-item">
+              <h2 class="mb-2 font-heading fs-4">{{repcount}}</h2>
+              <p class="mb-0 fs-9 text-secondary fw-medium">Replacements</p>
+            </li>
+            <li class="list-group-item">
+              <h2 class="mb-2 font-heading fs-4">{{delcount}}</h2>
+              <p class="mb-0 fs-9 text-secondary fw-medium">Delivery</p>
+            </li>
+            <li class="list-group-item">
+              <h2 class="mb-2 font-heading fs-4">{{collectcount}}</h2>
+              <p class="mb-0 fs-9 text-secondary fw-medium">Collection</p>
+            </li>
+          </ul> -->
+          <!-- <div class="row" hidden="true">
+            <div class="col-12">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center" (click)="onSelectStats('MOV')">
+                      <h2 class="mb-2 font-heading fs-4">{{movcount}}</h2>
+                      <p class="mb-0 fs-9 text-secondary fw-medium">Movements</p>
+                    </div>
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center"  (click)="onSelectStats('REP')">
+                      <h2 class="mb-2 font-heading fs-4">{{repcount}}</h2>
+                      <p class="mb-0 fs-9 text-secondary fw-medium">Replacements</p>
+                    </div>
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center"  (click)="onSelectStats('DEL')">
+                      <h2 class="mb-2 font-heading fs-4">{{delcount}}</h2>
+                      <p class="mb-0 fs-9 text-secondary fw-medium">Delivery</p>
+                    </div>
+                    <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center"  (click)="onSelectStats('COL')">
+                      <h2 class="mb-2 font-heading fs-4">{{collectcount}}</h2>
+                      <p class="mb-0 fs-9 text-secondary fw-medium">Collection</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- div class="row" hidden="true">
+            <div class="col-12" >
+              <div class="course-container" *ngFor="let task of tasklist  | searchFilter: filtertext">
+
+                <div class="course" [attr.rdocno]="task.rdocno" [attr.rdtype]="task.rdtype">
+                  <div class="course-preview text-center" [ngClass]="{
+                    'bg-collection':task.tripmode=='Collection',
+                    'bg-delivery':task.tripmode=='Delivery',
+                    'bg-repcollection':task.tripmode=='Replacement-Collection',
+                    'bg-repdelivery':task.tripmode=='Replacement-Delivery',
+                    'bg-repbranchclose':task.tripmode=='Replacement-Branch In',
+                    'bg-movbranchclose':task.tripmode=='Transfer Branch Close',
+                    'bg-grcollection':task.tripmode=='Garage Collection',
+                    'bg-grdelivery':task.tripmode=='Garage Delivery',
+                    'bg-grbranchclose':task.tripmode=='Garage Branch Close'
+                  }">
+                    <h6>{{task.tripmode}}</h6>
+                  </div>
+                  <div class="course-info">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3>{{task.clientname}}</h3>
+                        <h4>{{task.fleetname}}</h4>
+                      </div>
+                      <div>
+                        <button mat-raised-button color="primary" *ngIf="task.drvtripstatus=='0'" (click)="onDriverTripStart(task);">Start Trip</button>
+                        <button mat-raised-button class="btn btn-success" style="margin-right:5px;" *ngIf="task.drvtripstatus=='1'">Started</button>
+                        <button mat-raised-button class="btn btn-danger" *ngIf="task.drvtripstatus=='1'" (click)="funUpdateDel(task)">End Trip</button>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="task-outer-container mt-0 pb-3" style="background-color: #aeb8fe;border-top-left-radius:2.7rem;border-top-right-radius:2.7rem;">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                  <h2 class="mt-4 fs-4" >Manage Your Tasks</h2>
+                  <div class="filterlist-container mb-2 text-center">
+                    <ul  class="list-group list-group-horizontal" style="overflow-x: auto;">
+                      <li  class="list-group-item flex-fill d-flex justify-content-between align-items-center" [ngClass]="{'active':isActive=='ALL'}" (click)="onSelectStats('ALL');">
+                        <div matRipple>All</div>
+                        <span class="badge badge-primary ms-1 rounded-pill">{{movcount+jobcount+delcount+collectcount}}</span>
+                      </li>
+                      <li  class="list-group-item flex-fill d-flex justify-content-between align-items-center" [ngClass]="{'active':isActive=='MOV'}" (click)="onSelectStats('MOV');">
+                        <div>Movements</div>
+                        <span class="badge badge-primary ms-1 rounded-pill">{{movcount}}</span>
+                      </li>
+                      <li class="list-group-item flex-fill d-flex justify-content-between align-items-center" [ngClass]="{'active':isActive=='JOB'}" (click)="onSelectStats('JOB');">
+                        <div>Jobs</div>
+                        <span class="badge badge-primary ms-1 rounded-pill">{{jobcount}}</span>
+                      </li>
+                      <li class="list-group-item flex-fill d-flex justify-content-between align-items-center" [ngClass]="{'active':isActive=='DEL'}" (click)="onSelectStats('DEL');">
+                        <div>Delivery</div>
+                        <span class="badge badge-primary ms-1 rounded-pill">{{delcount}}</span>
+                      </li>
+                      <li class="list-group-item flex-fill d-flex justify-content-between align-items-center" [ngClass]="{'active':isActive=='COL'}" (click)="onSelectStats('COL');">
+                        <div>Collection</div>
+                        <span class="badge badge-primary ms-1 rounded-pill">{{collectcount}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div class="task-container" *ngFor="let task of tasklist  | searchFilter: filtertext">
+                    <div class="task-item card mb-3" (click)="onTaskSelect(task);" [ngClass]="{'active':task.drvtripstatus==1}" [attr.rdocno]="task.rdocno" [attr.rdtype]="task.rdtype">
+                      <div class="card-body pt-1 pb-1">
+                        <h4 class="mb-0"><span class="badge text-dark bg-repdelivery" style="border-radius: 3px;">{{task.tripmode}}</span></h4>
+                        <h3 class="d-flex align-items-center mb-1">
+                          <mat-icon class="me-2">account_box</mat-icon>
+                          <strong>{{task.clientname}}</strong>
+                        </h3>
+                        <h4 class="d-flex align-items-center mb-1"><mat-icon class="me-2" >directions_car</mat-icon>{{task.fleetname}}</h4>
+                        <p class="d-flex align-items-center mb-1" *ngIf="task.drvtripstatus==1"><mat-icon class="me-2">history</mat-icon> {{task.tripstartdate+" "+task.tripstarttime}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center pb-3" [hidden]="notripfound==0">
+                    <img src="{{bgpath}}no-trips.jpg" class="img-fluid rounded">
+                    <h2>No Trips Found</h2>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+  

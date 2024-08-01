@@ -1,0 +1,52 @@
+<form>
+<div class="container-fluid pt-2" style="max-height: 80vh;overflow-y: auto;">
+    <div class="row">
+        <div class="col-sm-4">
+            <app-autocomplete [initialValue]="this.initialClient" [type]="'client'" [labelvalue]="'Select Client'" ngDefaultControl [(ngModel)]="cldocno" name="cldocno" (valueChange)="getAutoListValue($event,'cldocno')" [isRequired]="true"></app-autocomplete>
+        </div>
+        <div class="col-sm-4">
+            <app-dropdown ngDefaultControl [(ngModel)]="brhid" name="brhid" (valueChange)="getListValue($event,'brhid')" [labelvalue]="'Select Branch'" [placeholder]="'Branch'" [type]="'branch'"></app-dropdown>    
+        </div>
+        <div class="col-sm-4">
+            <app-dropdown ngDefaultControl [(ngModel)]="locid" name="locid" (valueChange)="getListValue($event,'locid')" [labelvalue]="'Select Location'" [placeholder]="'Location'" [type]="'location'" [foreignkey]="this.brhid"></app-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <app-autocomplete [type]="'rrfleet'" [labelvalue]="'Select Fleet'" ngDefaultControl [(ngModel)]="fleetno" name="fleetno" (valueChange)="getAutoListValue($event,'fleetno')" [parambrhid]="brhid" [isRequired]="true"></app-autocomplete>
+        </div>
+        <div class="col-sm-4">
+            <app-autocomplete [type]="'clientdriver'" [labelvalue]="'Select driver'" ngDefaultControl [(ngModel)]="drvid" name="drvid" (valueChange)="getAutoListValue($event,'drvid')" [paramrefno]="cldocno" [isRequired]="true"></app-autocomplete>
+        </div>
+        <div class="col-sm-4">
+            <app-dropdown ngDefaultControl [(ngModel)]="tariffdocno" name="tariffdocno" (valueChange)="getListValue($event,'tariffdocno')" [labelvalue]="'Select Tariff'" [placeholder]="'Tariff'" [type]="'tariff'" [foreignkey]="this.fleetno"></app-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <!--<button (click)="openCheckBoxList();" mat-raised-button>Add-Ons</button>-->
+            <app-checkboxlist [type]="'tariffdetails'" [rentaltype]="this.rentaltype" [docno]="this.tariffdocno" [fleetno]="this.fleetno" (onFinalSelection)="getCheckboxlistValue($event)"></app-checkboxlist>
+        </div>
+        <div class="col-sm-4">
+            <app-datepicker [maxDate]="basedate" [placeholder]="'Choose Out Date'" ngDefaultControl [(ngModel)]="outdate" name="outdate" (dateValueChange)="getDate($event,'outdate')" [minDate]="activetask.mindate"></app-datepicker>
+        </div>
+        <div class="col-sm-4">
+            <app-timepicker  ngDefaultControl [(ngModel)]="outtime" name="outtime" (valueChange)="getTime($event,'outtime')" [baseparamtime]="baseparamtime"></app-timepicker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <mat-checkbox [(ngModel)]="chkdelivery" name="chkdelivery" [labelPosition]="'after'" [disabled]="false" ngDefaultControl [checked]="false" (change)="onDeliveryChange($event);">Delivery</mat-checkbox>
+        </div>
+        <div class="col-sm-4">
+            <app-autocomplete [type]="'compdriver'" [labelvalue]="'Select driver'" ngDefaultControl [(ngModel)]="deldrvid" name="deldrvid" (valueChange)="getAutoListValue($event,'deldrvid')" [disabled]="this.disableDelivery" [isRequired]="!this.disableDelivery"></app-autocomplete>
+        </div>
+        <div class="col-sm-4">
+            <app-textinput [placeholder]="'Enter Delivery Charge'" [isNumeric]="true" [textstatus]="this.invalidAmountStatus" [labelvalue]="'Delivery Charge'" ngDefaultControl [(ngModel)]="delchg" name="delchg" [disabled]="this.disableDelivery" (valueChange)="getTextValue($event,'delchg');" [isRequired]="!this.disableDelivery"></app-textinput>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"><button type="submit" mat-raised-button color="primary" (click)="onSubmit();" class="w-100">Create Agreement</button></div>
+    </div>
+</div>
+</form>

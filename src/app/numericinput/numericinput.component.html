@@ -1,0 +1,12 @@
+<div class="form-group">
+    <div class="form-floating mb-3">
+        <input #kmvalue (change)="setNumeric(kmvalue.value)" [ngClass]="{'is-invalid':kmstatus>0,'text-end':alignstyle=='right'}" required  type="text" id="kmvalue" name="kmvalue" class="form-control" [placeholder]="placeholder" [value]="initialvalue" [disabled]="disabled">
+        <label for="kmvalue">{{labelvalue}}</label>
+        <div *ngIf="kmstatus==1" class="invalid-feedback text-start">
+            <div>{{labelvalue}} is not valid</div>
+        </div>
+        <div *ngIf="kmstatus==2" class="invalid-feedback text-start">
+            <div>{{labelvalue}} cannnot be less than last entered km - {{validatevalue}}</div>
+        </div>        
+    </div>
+</div>

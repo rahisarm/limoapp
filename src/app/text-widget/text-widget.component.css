@@ -1,0 +1,25 @@
+
+.rounded-3 {
+    border-radius: 0.5rem!important;
+}
+
+.bg-success-soft {
+    opacity: 1;
+    background-color: rgba(25,135,84,.3)!important;
+}
+
+.icon-shape {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.icon-lg {
+    height: 3rem;
+    line-height: 3rem;
+    width: 3rem;
+    
+}

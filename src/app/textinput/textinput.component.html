@@ -1,0 +1,13 @@
+<mat-form-field class="example-full-width w-100" appearance="outline">
+    <mat-label>{{placeholder}}</mat-label>
+    <input type="text" matInput [formControl]="textvalue" (change)="setText(textvalue.value)" [placeholder]="placeholder" [pattern]="numericpattern" [value]="initialvalue">
+    <mat-error *ngIf="textvalue.hasError('required') || textvalue.invalid">{{placeholder}}</mat-error>
+    <mat-error *ngIf="textstatus==1">{{labelvalue}} cannot be empty</mat-error>
+    <mat-error *ngIf="textstatus==2">{{labelvalue}} Max limit reached</mat-error>
+    <mat-error *ngIf="textstatus==3">{{labelvalue}} Invalid Amount</mat-error>
+    <mat-error *ngIf="textvalue.invalid && isNumeric==true && (textvalue.dirty || textvalue.touched)">
+        <span *ngIf="textvalue.hasError('required')">Number is required.</span>
+        <span *ngIf="textvalue.hasError('pattern')">Invalid number format.</span>
+    </mat-error>
+  </mat-form-field>
+  
