@@ -45,7 +45,7 @@ export class ExpenseComponent implements OnInit {
   
 
   remarks:string='';
-  brhid:string='1';
+  brhid:string='';
   locid:string='';
   texterrorstatus:number=0;
   expenseheader:string='Add Expense';
@@ -106,6 +106,7 @@ export class ExpenseComponent implements OnInit {
       if(response){
         this.clientvalue=response[0].client;
         this.client=response[0].client;
+        this.brhid=response[0].branch;
       }
     })
   }
@@ -201,7 +202,7 @@ export class ExpenseComponent implements OnInit {
         this.imagedata.append('image',this.uploadImage[i],i+'');
       }
 
-      let expensedata={'job':this.job,'bookno':this.bookno,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'paytype':this.paytype,'cardtype':this.cardtype,'chequeno':this.chequevalue,'chequedate':this.dataservice.formatDate(this.chequedatevalue),'amount':this.amountvalue,'description':this.descvalue,'cardno':this.cardvalue};
+      let expensedata={'job':this.job,'bookno':this.bookno,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'paytype':this.paytype,'cardtype':this.cardtype,'chequeno':this.chequevalue,'chequedate':this.dataservice.formatDate(this.chequedatevalue),'amount':this.amountvalue,'description':this.descvalue,'cardno':this.cardvalue,'brhid':this.brhid};
       this.confirm.open('Confirmation','Do you want to update changes?').subscribe(resp=>{
         if(resp){
           this.service.saveExpense(this.imagedata,this.dataservice.formatJSONToURL(expensedata)).subscribe((response)=>{
