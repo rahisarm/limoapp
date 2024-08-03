@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   isActive:string='ALL';
   bgpath:string=environment.imgpath;
   driverFound:number=0;
+  hidden:boolean=false;
   constructor(
     private dataservice:DataService,
     private service:PostService,
