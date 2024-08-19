@@ -39,6 +39,7 @@ export class EndtripComponent implements OnInit {
   usedkm:number=0;
   bookingno:number=0;
   imagedata:FormData=new FormData();
+  imagedata2:FormData=new FormData();
   items:Array<any>=[];
   uploadImage:File[]=[];
   acceptedfiles:string='';
@@ -205,7 +206,7 @@ export class EndtripComponent implements OnInit {
       if(errorstatus==0){
         console.log("bookingno - "+this.bookingno);
         var blobdata=this.dataURLToBlob(this.signaturePad.toDataURL());
-        this.imagedata.append('image',blobdata,'1');
+        this.imagedata2.append('signature',blobdata,'1');
         for(let i=0;i<this.uploadImage.length;i++){
         //  console.log('File :'+this.uploadImage[i].name);
           this.imagedata.append('image',this.uploadImage[i],i+1+'');
@@ -216,7 +217,7 @@ export class EndtripComponent implements OnInit {
         this.confirm.open('Confirmation','Do you want to update changes?').subscribe(resp=>{
           if(resp){
             this.SpinnerService.show();
-            this.service.saveEndTripInsert(this.imagedata,this.dataservice.formatJSONToURL(endtripdata)).subscribe(response=>{
+            this.service.saveEndTripInsert(this.imagedata,this.imagedata2,this.dataservice.formatJSONToURL(endtripdata)).subscribe(response=>{
               if(response==true){
                 this.SpinnerService.hide();
                 this._snackbar.open('Trip Successfully Ended','Dismiss',{duration:2000});

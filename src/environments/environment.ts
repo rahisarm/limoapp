@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/carapp/api',
+  baseUrl: 'http://localhost:8080/limoapi/api',
   imgpath:'../../assets/images/',
   logoname:'complogo.jpeg'
   //baseUrl: 'http://gatewayerp.fortiddns.com:8880/carapp/api'

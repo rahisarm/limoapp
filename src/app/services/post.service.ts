@@ -181,10 +181,20 @@ export class PostService {
     return this.httpClient.post(url,this.httpOptions);
   }
   // insertions to end the trips
-  saveEndTripInsert(imagedata: FormData,data:string){
+  saveEndTripInsert(imagedata: FormData, imagedata2:FormData,data:string){
     let url=this.API_URL+'/setEndTrip?'+data;
     console.log(url);
-    return this.httpClient.post(url,imagedata);
+    let formData = new FormData();
+    imagedata.forEach((value, key) => {
+      formData.append(key, value);
+    });
+  
+    // Append the second imagedata (assuming it has a key like 'image2')
+    imagedata2.forEach((value, key) => {
+      formData.append(key, value);
+    });
+
+    return this.httpClient.post(url,formData);
   }
 
   saveMovInsert(data:string):Observable<any>{
@@ -199,7 +209,7 @@ export class PostService {
   }
 
   getStartTripData(data: string) {
-    let url=this.API_URL+'/getStartTripData?rdocno='+data;
+    let url=this.API_URL+'/getStartTripData?rdocno='+data+'&driverdocno='+localStorage.getItem('token');
     return this.httpClient.get(url,this.httpOptions);
   }
 
