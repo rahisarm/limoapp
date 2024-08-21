@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatTabsModule } from '@angular/material/tabs';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -100,7 +101,7 @@ import { ExpenseComponent } from './expense/expense.component';
     TextWidgetComponent,
     StarttripComponent,
     EndtripComponent,
-    ExpenseComponent
+    ExpenseComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +109,7 @@ import { ExpenseComponent } from './expense/expense.component';
     HttpClientModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTabsModule,
     MatIconModule,
     MatListModule,
     MatButtonModule,

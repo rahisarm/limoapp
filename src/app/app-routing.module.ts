@@ -42,7 +42,7 @@ const routes: Routes = [
   {path:'test',component:TestComponent,title:'Testing Component',canActivate:[AuthGuard]},
   {path:'starttrip',component:StarttripComponent,title:'Start Trip',canActivate:[AuthGuard]},
   {path:'endtrip',component:EndtripComponent,title:'End Trip',canActivate:[AuthGuard]},
-  {path:'expense',component:ExpenseComponent,title:'Expense',canActivate:[AuthGuard]}
+  {path:'expense',component:ExpenseComponent,title:'Expense',canActivate:[AuthGuard]},
 ];
 
 @NgModule({

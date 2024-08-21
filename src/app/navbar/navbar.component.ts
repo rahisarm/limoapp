@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['\login']);
   }
-
+  
   onRefreshTasks(){
     //this.toolbarservice.onTaskRefresh();
     const currentUrl = this.router.url;
