@@ -208,8 +208,9 @@ export class PostService {
     return this.httpClient.get(url,this.httpOptions);
   }
 
-  getStartTripData(data: string) {
-    let url=this.API_URL+'/getStartTripData?rdocno='+data+'&driverdocno='+localStorage.getItem('token');
+  getStartTripData(data: string,jobstype : string) {
+    let url=this.API_URL+'/getStartTripData?rjobtype='+jobstype+'&rdocno='+data+'&driverdocno='+localStorage.getItem('token');
+    console.log(url);
     return this.httpClient.get(url,this.httpOptions);
   }
 
@@ -246,6 +247,16 @@ export class PostService {
   getCardType(){
     let url=this.API_URL+'/getCardType';
     return this.httpClient.get(url,this.httpOptions);
+  }
+
+  getStatus(){
+    let url=this.API_URL+'/getJobStatus';
+    return this.httpClient.get(url,this.httpOptions);
+  }
+
+  setStatus(data: string){
+    let url=this.API_URL+'/setJobStatus?'+data;
+    return this.httpClient.post(url,this.httpOptions);
   }
 
   saveRentalReciept(data: string):Observable<any> {

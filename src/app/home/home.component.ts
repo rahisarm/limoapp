@@ -83,7 +83,6 @@ export class HomeComponent implements OnInit {
 
     this.service.getTasks()
         .subscribe(response => {
-          console.log("get task response - "+response);
           this.tasklist = response;
           this.movcount=0;
           this.jobcount=0;
@@ -96,7 +95,7 @@ export class HomeComponent implements OnInit {
             else if(element.tripmode=='Delivery'){
               this.delcount++;
             }
-            else if(element.tripmode=='Job Assigned'){
+            else if(element.tripmode=='Job Assigned' || element.tripmode=='Job Accepted' ||element.tripmode=='Trip Started' || element.tripmode=='Waiting For Guest'){
               this.jobcount++;
             }
             else if(element.tripmode=='Transfer Branch Close' || element.tripmode=='Garage Collection' || element.tripmode=='Garage Delivery' || element.tripmode=='Garage Branch Close'){
@@ -129,6 +128,9 @@ export class HomeComponent implements OnInit {
     }
     else if(code=='JOB'){
       tripmodearray.push('Job Assigned');
+      tripmodearray.push('Job Accepted');
+      tripmodearray.push('Trip Started');
+      tripmodearray.push('Waiting For Guest');
       this.isActive='JOB';
     }
     else if(code=='MOV'){
@@ -137,6 +139,7 @@ export class HomeComponent implements OnInit {
       tripmodearray.push('Garage Delivery');
       tripmodearray.push('Garage Branch Close');
       this.isActive='MOV';
+      //this.hiddenlabel=true;
     }
     else if(code=='ALL'){
       this.isActive='ALL';
@@ -170,7 +173,7 @@ export class HomeComponent implements OnInit {
           else if(element.tripmode=='Delivery'){
             this.delcount++;
           }
-          else if(element.tripmode=='Job Assigned'){
+          else if(element.tripmode=='Job Assigned' || element.tripmode=='Job Accepted' ||element.tripmode=='Trip Started' || element.tripmode=='Waiting For Guest'){
             this.jobcount++;
           }
           else if(element.tripmode=='Transfer Branch Close' || element.tripmode=='Garage Collection' || element.tripmode=='Garage Delivery' || element.tripmode=='Garage Branch Close'){
@@ -191,7 +194,17 @@ export class HomeComponent implements OnInit {
 
   onTaskSelect(task:any){
     console.log(task);
-    if(task.tripmode=="Job Assigned" && task.drvtripstatus==0){
+    if(task.tripmode=="Job Assigned"){
+      this.confirmdialogService.open('Confirmation','Accept the trip?').subscribe(result=>{
+        if(result){
+          this.onUpdateStatus(task);
+        } else {
+          this.router.navigate(['/home']);
+        } 
+      })
+    }
+
+    else if((task.tripmode=="Job Accepted" || task.tripmode=="Waiting For Guest")&& task.drvtripstatus==0){
       this.confirmdialogService.open('Confirmation','Are you sure to start the trip ?').subscribe(result=>{
         if(result){
           this.onSelectLimoJob(task);
@@ -199,7 +212,7 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/home']);
         } 
       })
-    } else if(task.tripmode=="Job Assigned" && task.drvtripstatus==1){
+    } else if(task.tripmode=="Trip Started" && task.drvtripstatus==1){
       this.confirmdialogService.open('Confirmation','Are you sure to end the trip ?').subscribe(result=>{
         if(result){
           this.onSelectLimoJob(task);
@@ -207,11 +220,18 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/home']);
         } 
       })
-    } else if(task.drvtripstatus!=1 && task.tripmode!="Job Assigned"){
+    } else if(task.drvtripstatus!=1 && (task.tripmode!="Job Assigned" || task.tripmode!="Job Accepted" || task.tripmode!="Trip Started" || task.tripmode!='Waiting For Guest')){
       this.onDriverTripStart(task);
-    } else if(task.drvtripstatus==1 && task.tripmode!="Job Assigned"){
+    } else if(task.drvtripstatus==1 && (task.tripmode!="Job Assigned" || task.tripmode!="Job Accepted" || task.tripmode!="Trip Started" || task.tripmode!='Waiting For Guest')){
       this.funUpdateDel(task);
     }
+  }
+
+  onUpdateStatus(task:any){
+    console.log("Entered onUpdateStatus");
+    this.dataservice.setTaskData({'rdocno':task.rdocno,'rdtype':task.rdtype,'tripmode':task.tripmode,'repno':task.repno,'rjobtype':task.rjobtype});
+    this.sharedService.setData({'rdocno':task.rdocno,'rdtype':task.rdtype,'driverdocno':localStorage.getItem('token')});
+    this.router.navigate(['/statusupdate']);
   }
 
   onSelectLimoJob(task:any){    
@@ -240,7 +260,7 @@ export class HomeComponent implements OnInit {
   }
 
   funUpdateDel(task:any){
-    this.dataservice.setTaskData({'rdocno':task.rdocno,'rdtype':task.rdtype,'tripmode':task.tripmode,'repno':task.repno});
+    this.dataservice.setTaskData({'rdocno':task.rdocno,'rdtype':task.rdtype,'tripmode':task.tripmode,'repno':task.repno,'rjobtype':task.rjobtype});
     this.sharedService.setData({'rdocno':task.rdocno,'rdtype':task.rdtype,'driverdocno':localStorage.getItem('token')});
     if(parseInt(task.repno)>0 && task.tripmode!='Collection'){
       this.router.navigate(['/replacement']);  
@@ -250,7 +270,7 @@ export class HomeComponent implements OnInit {
     }
     else if(task.tripmode=='Collection'){
       this.router.navigate(['/collection']);
-    } else if(task.tripmode=='Job Assigned'){
+    } else if(task.tripmode=='Job Accepted'|| task.tripmode=='Waiting For Guest' || task.tripmode=='Trip Started'){
       task.drvtripstatus==1?this.router.navigate(['/endtrip']):this.router.navigate(['/starttrip']);
     } else {
       this.router.navigate(['/delivery-child'],{relativeTo:this.activeRoute});

@@ -127,20 +127,26 @@
                       </li>
                     </ul>
                   </div>
-                  
                   <div class="task-container" *ngFor="let task of tasklist  | searchFilter: filtertext">
-                    <div class="task-item card mb-3" (click)="onTaskSelect(task);" [ngClass]="{'active':task.drvtripstatus==1}" [attr.rdocno]="task.rdocno" [attr.rdtype]="task.rdtype">
-                      <div class="card-body pt-1 pb-1">
-                        <h4 class="mb-0"><span class="badge text-dark bg-repdelivery" style="border-radius: 3px;">{{task.tripmode}}</span></h4>
-                        <h3 class="d-flex align-items-center mb-1">
-                          <mat-icon class="me-2">account_box</mat-icon>
-                          <strong>{{task.clientname}}</strong>
-                        </h3>
-                        <h4 class="d-flex align-items-center mb-1"><mat-icon class="me-2" >directions_car</mat-icon>{{task.fleetname}}</h4>
-                        <p class="d-flex align-items-center mb-1" *ngIf="task.drvtripstatus==1"><mat-icon class="me-2">history</mat-icon> {{task.tripstartdate+" "+task.tripstarttime}}</p>
+                    <div class="task-item card mb-3"  [ngClass]="{'active':task.drvtripstatus==1}" [attr.rdocno]="task.rdocno" [attr.rdtype]="task.rdtype">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="card-body pt-1 pb-1" (click)="onTaskSelect(task);">
+                          <h4 class="mb-0"><span *ngIf="task.rdtype!=='MOV'" class="badge text-dark bg-repdelivery" style="border-radius: 3px;">{{task.tripmode}}</span><span *ngIf="task.rdtype=='MOV'" class="badge text-dark bg-repdelivery" style="border-radius: 3px;">{{task.drvtripstatus==1?"Started":"Assigned"}}</span></h4>
+                          <h3 class="d-flex align-items-center mb-1">
+                            <mat-icon class="me-2">account_box</mat-icon>
+                            <strong>{{task.clientname}}</strong>
+                          </h3>
+                          <h4 class="d-flex align-items-center mb-1"><mat-icon class="me-2" >directions_car</mat-icon>{{task.fleetname}}</h4>
+                          <p class="d-flex align-items-center mb-1" *ngIf="task.drvtripstatus==1"><mat-icon class="me-2">history</mat-icon> {{task.tripstartdate+" "+task.tripstarttime}}</p>
+                        </div>
+                        <div   *ngIf="task.rdtype!=='MOV'" class="example-button-container me-3">
+                          <button mat-raised-button color="white" aria-label="Update Status" (click)="onUpdateStatus(task);">
+                            Update Status
+                          </button>
+                        </div>
+                      </div>
                       </div>
                     </div>
-                  </div>
                   <div class="text-center pb-3" [hidden]="notripfound==0">
                     <img src="{{bgpath}}no-trips.jpg" class="img-fluid rounded">
                     <h2>No Trips Found</h2>

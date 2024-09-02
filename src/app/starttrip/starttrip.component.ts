@@ -33,6 +33,7 @@ export class StarttripComponent implements OnInit {
   kmerrorstatus:number=0;
   usedkm:number=0;
   bookingno:number=0;
+  jobtype:string='';
 
   constructor( private service:PostService,
     private dataservice:DataService,
@@ -50,14 +51,15 @@ export class StarttripComponent implements OnInit {
       this.starttripheader='Start Trip';
       
     } else {
-      this.getTripData(taskdata.rdocno);
+      this.getTripData(taskdata.rdocno,taskdata.rjobtype);
       this.bookingno=taskdata.rdocno;
     }
   }
 
-  getTripData(data:string){
-    this.service.getStartTripData(data).subscribe(response=>{
+  getTripData(data:string,jobstype:string){
+    this.service.getStartTripData(data,jobstype).subscribe(response=>{
       this.activetask=response[0];
+      this.jobtype=jobstype;
       //console.log(this.starttripstage+"::"+this.activetask.delivery+"::"+this.activetask.collection);
       //this.mindate=new Date(this.activetask.mindate);
       this.starttripheader='Trip #'+this.activetask.bookingno+' '+this.activetask.vehname+' - '+this.activetask.guest+' '+this.activetask.client;
@@ -98,6 +100,7 @@ export class StarttripComponent implements OnInit {
       this.activetask=response[0];
       this.mindate=new Date(this.activetask.mindate);
       this.minkm=this.activetask.minkm;
+      this.kmvalue=this.activetask.minkm;
     });
   }
 
@@ -122,12 +125,12 @@ export class StarttripComponent implements OnInit {
       errorstatus=this.dataservice.validateTime(this.activetask.mindate,this.datevalue,this.activetask.mintime,this.timevalue);
       iskmerror=this.kmerrorstatus=this.dataservice.validateKm(this.kmvalue,this.activetask.minkm);
       if(iskmerror>0 ){
-        this._snackbar.open('Input Error!','Dismiss',{duration:2000});
+        this._snackbar.open('Please set valid km','Dismiss',{duration:2000});
         return false;
       } 
       if(errorstatus==0){
        // console.log("bookingno - "+this.bookingno);
-        let starttripdata={'fleetno':this.fleetvalue,'basedate':this.dataservice.formatDate(new Date()),'date':this.dataservice.formatDate(this.datevalue),'time':this.timevalue,'km':this.kmvalue,'brhid':this.activetask.brhid,'locid':this.activetask.locid,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'remarks':this.remarks,'bookingno':this.bookingno};
+        let starttripdata={'fleetno':this.fleetvalue,'basedate':this.dataservice.formatDate(new Date()),'date':this.dataservice.formatDate(this.datevalue),'time':this.timevalue,'km':this.kmvalue,'brhid':this.activetask.brhid,'locid':this.activetask.locid,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'remarks':this.remarks,'bookingno':this.bookingno,'rjobtype':this.jobtype};
         this.confirm.open('Confirmation','Do you want to update changes?').subscribe(resp=>{
           if(resp){
             this.service.saveStartTripInsert(this.dataservice.formatJSONToURL(starttripdata)).subscribe(response=>{

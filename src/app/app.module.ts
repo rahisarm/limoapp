@@ -70,6 +70,8 @@ import { EndtripComponent } from './endtrip/endtrip.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { TaskComponent } from './task/task.component';
 import { TaskdialogComponent } from './taskdialog/taskdialog.component';
+import { StatusupdateComponent } from './statusupdate/statusupdate.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,6 +108,7 @@ import { TaskdialogComponent } from './taskdialog/taskdialog.component';
     ExpenseComponent,
     TaskComponent,
     TaskdialogComponent,
+    StatusupdateComponent
   ],
   imports: [
     BrowserModule,

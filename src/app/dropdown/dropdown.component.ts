@@ -135,9 +135,22 @@ export class DropdownComponent implements OnInit,OnChanges {
         {refname: 'Confirmed', docno: 'Confirmed'}
       ]
     }
+    else if (this.type=='statuslist'){
+      this.getStatus();
+    }
   }
   changeOption(value:string){
     this.valueChange.emit(value);
+  }
+
+  async getStatus(){
+    await this.service.getStatus().subscribe(response=>{
+      let statusarray=new Array();
+      Object.values(response).forEach(function(key){
+        statusarray.push({'docno':key.jobstatusid,'refname':key.jobstatus});
+      });
+      this.optionlist=statusarray;
+    });
   }
 
   async getCardType(cardtype:string){
