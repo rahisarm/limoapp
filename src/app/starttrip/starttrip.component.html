@@ -14,7 +14,7 @@
                     <app-timepicker  ngDefaultControl [(ngModel)]="timevalue" name="timevalue" (valueChange)="getTime($event)" [baseparamtime]="basetime"></app-timepicker>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <app-numericinput ngDefaultControl [(ngModel)]="kmvalue" name="kmvalue" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event)" [validatevalue]="minkm"></app-numericinput>
+                    <app-numericinput ngDefaultControl [(ngModel)]="kmvalue" name="kmvalue" [kmstatus]="kmerrorstatus"  (valueChange)="getKmValue($event)" [validatevalue]="minkm" [initialvalue]="minkm"></app-numericinput>
                 </div>
                 <div Class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <app-textinput ngDefaultControl [(ngModel)]="remarks" name="remarks" [textstatus]="texterrorstatus" (valueChange)="getTextValue($event)" [placeholder]="'Remarks'"></app-textinput>

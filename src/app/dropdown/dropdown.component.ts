@@ -45,6 +45,11 @@ export class DropdownComponent implements OnInit,OnChanges {
       else if(changename==='foreignkey' && this.type=='tariff'){
         this.getTariff(change.currentValue);
       }
+      else if(changename==='initialoption' && this.initialoption!=''){
+        this.selectedvalue=change.currentValue;
+        this.cmbfuel=new FormControl(this.selectedvalue,[Validators.required]);
+      }
+      
     }
   }
 
@@ -119,6 +124,17 @@ export class DropdownComponent implements OnInit,OnChanges {
        
       ]
     }
+    else if(this.type=='tasktype'){
+      this.getTaskType();
+    }
+    else if(this.type='taskstatus'){
+      this.optionlist=[
+        {refname: 'Assign', docno: 'Assigned'},
+        {refname: 'Accepted', docno: 'Accepted'},
+        {refname: 'Completed', docno: 'Completed'},
+        {refname: 'Confirmed', docno: 'Confirmed'}
+      ]
+    }
   }
   changeOption(value:string){
     this.valueChange.emit(value);
@@ -180,5 +196,16 @@ export class DropdownComponent implements OnInit,OnChanges {
       });
       this.optionlist=locarray;
     }    
+  }
+
+  async getTaskType(){
+    this.optionlist=[];
+    let taskarray=new Array();
+    await this.service.getTaskType().subscribe(response=>{
+        Object.values(response).forEach(function(key){
+          taskarray.push({'docno':key.docno,'refname':key.refname});
+        });
+      });
+      this.optionlist=taskarray;
   }
 }

@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="card-list">
+    <div class="card" *ngFor="let task of tasklist">
+      <div class="card-body p-3" (click)="loadAssignData(task)">
+        <div class="d-flex align-items-center flex-wrap">
+          <!-- Icon Container -->
+          <div class="task-icon-container  pt-2 pb-2 ps-2 pe-2 d-flex align-items-center justify-content-center">
+            <mat-icon>check</mat-icon>
+          </div>
+
+          <!-- Details Container -->
+          <div class="task-det-container ps-2 flex-grow-1">
+            <strong><p class="mb-0 text-start">Ref #{{task.refNo}}</p></strong>
+            <p class="mb-0 text-grey text-start">{{task.desc}}</p>
+          </div>
+          
+          <!-- Reference Type Container -->
+          <div class="task-ref-container  ps-2 pe-2 d-flex align-items-center" style="min-width: 10em;">
+            <mat-icon class="me-1">dataset</mat-icon>
+            <span class="text-start">{{task.refType}}</span>
+          </div>
+
+          <!-- User Container -->
+          <div class="task-user-container  ps-2 pe-2 d-flex align-items-center" style="min-width: 10em;">
+            <mat-icon class="me-1">supervised_user_circle</mat-icon>
+            <span class="text-start">{{task.user}}</span>
+          </div>
+
+          <!-- Date Container -->
+          <div class="task-date-container  ps-2 pe-2 d-flex align-items-center" style="min-width: 10em;">
+            <mat-icon class="me-1">calendar_month</mat-icon>
+            <span class="text-start">{{task.edcDate | date:'dd-MM-yyyy'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
+
+<div class="fab-button-container">
+    <button mat-fab color="primary" aria-label="Create Task Icon" (click)="openDialog(null);">
+        <mat-icon>add</mat-icon>
+      </button>
+</div>

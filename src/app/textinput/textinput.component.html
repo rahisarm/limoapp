@@ -1,6 +1,6 @@
 <mat-form-field class="example-full-width w-100" appearance="outline">
     <mat-label>{{placeholder}}</mat-label>
-    <input type="text" matInput [formControl]="textvalue" (change)="setText(textvalue.value)" [placeholder]="placeholder" [pattern]="numericpattern" [value]="initialvalue">
+    <input type="text" matInput [formControl]="textvalue"  (change)="setText(textvalue.value)" [placeholder]="placeholder" [pattern]="numericpattern" [value]="initialvalue">
     <mat-error *ngIf="textvalue.hasError('required') || textvalue.invalid">{{placeholder}}</mat-error>
     <mat-error *ngIf="textstatus==1">{{labelvalue}} cannot be empty</mat-error>
     <mat-error *ngIf="textstatus==2">{{labelvalue}} Max limit reached</mat-error>

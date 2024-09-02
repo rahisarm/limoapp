@@ -15,6 +15,7 @@
         <span class="example-spacer"></span>
         <div class="profile-icon-container">
           <button mat-icon-button [hidden]="true" aria-label="Inspection Print" (click)="onPrintInspection()"><mat-icon>print</mat-icon></button>
+          <button mat-icon-button aria-label="refresh icon" routerLink="/task" routerLinkActive="active"><mat-icon>splitscreen</mat-icon></button>
           <button mat-icon-button aria-label="refresh icon" (click)="onRefreshTasks();"><mat-icon>refresh</mat-icon></button>
           <button mat-icon-button class="profile-icon" aria-label="profile icon" [matMenuTriggerFor]="profilemenu">
             <mat-icon>account_circle</mat-icon>

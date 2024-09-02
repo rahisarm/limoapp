@@ -226,6 +226,17 @@ export class AutocompleteComponent implements OnInit {
         this.loadFn();
       })
     }
+    else if(this.type=='user'){
+      this.isloading=1;
+      this.service.getUser().subscribe(response=>{
+        Object.values(response).forEach(function(key){
+          datalist.push({docno:key.docno,refname:key.refname});
+         // console.log(datalist)
+        });
+        this.options=datalist;
+        this.loadFn();
+      })
+    }
     
   }
 

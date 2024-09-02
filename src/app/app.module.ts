@@ -68,6 +68,8 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { StarttripComponent } from './starttrip/starttrip.component';
 import { EndtripComponent } from './endtrip/endtrip.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { TaskComponent } from './task/task.component';
+import { TaskdialogComponent } from './taskdialog/taskdialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,6 +104,8 @@ import { ExpenseComponent } from './expense/expense.component';
     StarttripComponent,
     EndtripComponent,
     ExpenseComponent,
+    TaskComponent,
+    TaskdialogComponent,
   ],
   imports: [
     BrowserModule,
