@@ -18,6 +18,7 @@ export class DataService {
   }
   rdocno:any;
   rdtype:any;
+  rjobtype:any;
   tripmode:any;
   repno:any;
   date:string='';
@@ -69,9 +70,10 @@ export class DataService {
     this.time=data.time;
     this.km=data.km;
     this.fuel=data.fuel;
+    this.rjobtype=data.rjobtype;
   }
   getTaskData(){
-     return {'rdocno':this.rdocno,'rdtype':this.rdtype,'tripmode':this.tripmode,'repno':this.repno,'date':this.date,'time':this.time,'km':this.km,'fuel':this.fuel};
+     return {'rdocno':this.rdocno,'rdtype':this.rdtype,'tripmode':this.tripmode,'repno':this.repno,'date':this.date,'time':this.time,'km':this.km,'fuel':this.fuel,'rjobtype':this.rjobtype};
   }
   getTimeOnly(basedate:Date){
     let basehours=basedate.getHours()+'';

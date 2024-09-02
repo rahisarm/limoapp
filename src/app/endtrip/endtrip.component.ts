@@ -21,6 +21,7 @@ export class EndtripComponent implements OnInit {
   activetask:any={};
   fleetvalue:string='';
   datevalue:Date=new Date();
+  jobtype:string='';
   timevalue:string=this.dataservice.getTimeOnly(new Date());
   mindate:Date=new Date();
   basetime:string=this.dataservice.getTimeOnly(new Date());
@@ -84,19 +85,22 @@ export class EndtripComponent implements OnInit {
   ngOnInit(): void {
     this.toolbarservice.setData('End Trip');
     let taskdata=this.dataservice.getTaskData();
+    console.log("Taskdata"+taskdata)
     if(taskdata.rdocno=='' || taskdata.rdocno=='undefined' || typeof(taskdata.rdocno)=='undefined'){
       this.endtripheader='End Trip';
     } else {
       //console.log("Entered ON INIT");
-      this.getTripData(taskdata.rdocno);
+      console.log("rjobtype="+taskdata.rjobtype)
+      this.getTripData(taskdata.rdocno,taskdata.rjobtype);
       this.bookingno=taskdata.rdocno;
     }
     this.SpinnerService.hide();
   }
 
-  getTripData(data:string){
-    this.service.getStartTripData(data).subscribe(response=>{
+  getTripData(data:string,jobstype:string){
+    this.service.getStartTripData(data,jobstype).subscribe(response=>{
       this.activetask=response[0];
+      this.jobtype=jobstype;
       //console.log(this.starttripstage+"::"+this.activetask.delivery+"::"+this.activetask.collection);
       //this.mindate=new Date(this.activetask.mindate);
       this.endtripheader='Trip #'+this.activetask.bookingno+' '+this.activetask.vehname+' - '+this.activetask.guest+', '+this.activetask.client;
@@ -212,7 +216,7 @@ export class EndtripComponent implements OnInit {
           this.imagedata.append('image',this.uploadImage[i],i+1+'');
         }
        // console.log("Image Data - "+this.dataservice.formatDate(this.datevalue)+" Date "+this.dataservice.formatDate(new Date()));
-        let endtripdata={'fleetno':this.fleetvalue,'basedate':this.dataservice.formatDate(new Date()),'date':this.dataservice.formatDate(this.datevalue),'time':this.timevalue,'km':this.kmvalue,'brhid':this.activetask.brhid,'locid':this.activetask.locid,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'remarks':this.remarks,'bookingno':this.bookingno};
+        let endtripdata={'fleetno':this.fleetvalue,'basedate':this.dataservice.formatDate(new Date()),'date':this.dataservice.formatDate(this.datevalue),'time':this.timevalue,'km':this.kmvalue,'brhid':this.activetask.brhid,'locid':this.activetask.locid,'drvdocno':localStorage.getItem('token'),'userid':localStorage.getItem('userid'),'remarks':this.remarks,'bookingno':this.bookingno,'rjobtype':this.jobtype};
         
         this.confirm.open('Confirmation','Do you want to update changes?').subscribe(resp=>{
           if(resp){

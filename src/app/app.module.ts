@@ -68,6 +68,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { StarttripComponent } from './starttrip/starttrip.component';
 import { EndtripComponent } from './endtrip/endtrip.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { StatusupdateComponent } from './statusupdate/statusupdate.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,6 +103,7 @@ import { ExpenseComponent } from './expense/expense.component';
     StarttripComponent,
     EndtripComponent,
     ExpenseComponent,
+    StatusupdateComponent,
   ],
   imports: [
     BrowserModule,

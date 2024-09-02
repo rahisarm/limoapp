@@ -1,0 +1,22 @@
+<div class="container-fluid pt-2" style="height: 75vh;overflow-y: auto;">
+    <div class="card ">
+        <div class="card-body">
+            <div class="card bg-custom-primary" *ngIf="this.statusupdateheader!='Status Update'">
+                <div class="card-body">
+                    <h3 class="mb-0">{{statusupdateheader}}</h3>
+                </div>
+            </div>
+            <div class="row " [ngClass]="{'mt-2':this.statusupdateheader!='Status Update'}">
+                <div class="col-12 col-sm-6">
+                    <app-dropdown #elmstustatus [type]="'statuslist'" [labelvalue]="'Select Status'" ngDefaultControl [(ngModel)]="statusvalue" name="statusvalue" (valueChange)="getAutoListValue($event,'statuslist')"></app-dropdown>
+                </div>
+                <div Class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <app-textinput ngDefaultControl [(ngModel)]="remarks" name="remarks" [textstatus]="texterrorstatus" (valueChange)="getTextValue($event)" [placeholder]="'Remarks'"></app-textinput>
+                </div>
+                <div class="row mt-2">
+                    <button mat-raised-button color="primary" class="w-100" (click)="onSubmitJob()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
