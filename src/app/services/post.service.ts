@@ -371,4 +371,28 @@ export class PostService {
     let url=this.API_URL+'/getFileTypes';
     return this.httpClient.get(url,this.httpOptionsJSON);
   }
+
+  getTaskType(){
+    let url=this.API_URL+'/getTaskType';
+    return this.httpClient.get(url,this.httpOptionsJSON);
+  }
+
+  getUser(){
+    let url=this.API_URL+'/getUser';
+    return this.httpClient.get(url,this.httpOptionsJSON);
+  }
+
+  addTask(data:string){
+    let url=this.API_URL+'/addtask?'+data;
+    return this.httpClient.post(url,this.httpOptionsJSON);
+  }
+  
+  reAssignTask(data:string){
+    let url=this.API_URL+'/reAssignTask?'+data;
+    return this.httpClient.post(url,this.httpOptionsJSON);
+  }
+  getPendingTasks(userid:string){
+    let url=this.API_URL+'/pendingtask?userid='+userid;
+    return this.httpClient.get(url,this.httpOptionsJSON);
+  }
 }

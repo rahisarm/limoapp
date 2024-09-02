@@ -33,6 +33,9 @@ export class TextinputComponent implements OnInit,OnChanges {
         this.isRequired=change.currentValue;
         this.textvalue = new FormControl('',this.getValidators());
       }
+      else if(changename=='initialvalue'){
+        this.textvalue = new FormControl(change.currentValue,this.getValidators());
+      }
       else if(changename=='isNumeric'){
         this.isNumeric=change.currentValue;
         this.numericpattern='^-?[0-9]+(\.[0-9]+)?$';

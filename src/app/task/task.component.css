@@ -1,0 +1,18 @@
+
+.fab-button-container{
+    position: absolute;
+    bottom: 7em;
+    right:3em;
+}
+.task-icon-container{
+  background-color: var(--bg-gw-primary) !important;
+  color: var(--text-gw-white);
+  border-radius:0.2rem;
+}
+.card-list{
+  overflow-y: auto;
+  height: 78vh;
+}
+.task-det-container{
+  flex-grow:1;
+}

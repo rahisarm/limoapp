@@ -19,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 import { StarttripComponent } from './starttrip/starttrip.component';
 import { EndtripComponent } from './endtrip/endtrip.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { TaskComponent } from './task/task.component';
 import { StatusupdateComponent } from './statusupdate/statusupdate.component';
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path:'starttrip',component:StarttripComponent,title:'Start Trip',canActivate:[AuthGuard]},
   {path:'endtrip',component:EndtripComponent,title:'End Trip',canActivate:[AuthGuard]},
   {path:'expense',component:ExpenseComponent,title:'Expense',canActivate:[AuthGuard]},
+  {path:'task',component:TaskComponent,title:'Task',canActivate:[AuthGuard]},
   {path:'statusupdate',component:StatusupdateComponent,title:'Status Update',canActivate:[AuthGuard]},
 ];
 

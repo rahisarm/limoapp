@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <form #taskForm="ngForm"  (ngSubmit)="onSave(taskForm)">
+    <h2 mat-dialog-title>{{this.taskdata==null || this.taskdata==''?'Add Task':'Assign Task'}}</h2>
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <app-textinput ngDefaultControl [(ngModel)]="refno" name="refno" [textstatus]="refnoerrorstatus" (valueChange)="getValue($event,'refno')" [placeholder]="'Enter Refno'" [initialvalue]="this.refno"></app-textinput>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <app-dropdown ngDefaultControl [(ngModel)]="cmbtype" name="cmbtype" (valueChange)="getValue($event,'cmbtype')" [labelvalue]="'Select Type'" [placeholder]="'Type'" [type]="'tasktype'" [initialoption]="cmbtype"></app-dropdown>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <app-datepicker ngDefaultControl [(ngModel)]="datevalue" name="datevalue" [minDate]="mindate" (dateValueChange)="getValue($event,'datevalue')" [allowFutureDate]="1"></app-datepicker>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <app-dropdown ngDefaultControl [(ngModel)]="cmbstatus" name="cmbstatus" (valueChange)="getValue($event,'cmbstatus')" [labelvalue]="'Select Status'" [placeholder]="'Status'" [type]="'taskstatus'" [initialoption]="cmbstatus"></app-dropdown>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <app-autocomplete  [type]="'user'" ngDefaultControl [labelvalue]="'Select Assign User'" [(ngModel)]="user" name="user" (valueChange)="getValue($event,'user')" [isRequired]="true"></app-autocomplete>    
+            </div>
+            <div class="col">
+                <app-textinput ngDefaultControl [(ngModel)]="remarks" name="remarks" [textstatus]="remarkserrorstatus" (valueChange)="getValue($event,'remarks')" [placeholder]="'Enter Remarks'" [initialvalue]="this.remarks" ></app-textinput>
+            </div>
+        </div>
+        <div mat-dialog-actions class="d-flex justify-content-end">
+            <button mat-button (click)="onCancelDialog();">Cancel</button>
+            <button mat-raised-button color="primary" type="submit" >Save Task</button>
+        </div>
+    </div>
+</form>
+</div>

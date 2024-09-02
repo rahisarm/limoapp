@@ -68,7 +68,10 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { StarttripComponent } from './starttrip/starttrip.component';
 import { EndtripComponent } from './endtrip/endtrip.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { TaskComponent } from './task/task.component';
+import { TaskdialogComponent } from './taskdialog/taskdialog.component';
 import { StatusupdateComponent } from './statusupdate/statusupdate.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,7 +106,9 @@ import { StatusupdateComponent } from './statusupdate/statusupdate.component';
     StarttripComponent,
     EndtripComponent,
     ExpenseComponent,
-    StatusupdateComponent,
+    TaskComponent,
+    TaskdialogComponent,
+    StatusupdateComponent
   ],
   imports: [
     BrowserModule,
